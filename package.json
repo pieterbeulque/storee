@@ -1,0 +1,34 @@
+{
+  "name": "storee",
+  "version": "0.0.1",
+  "description": "A lightweight wrapper around localStorage to make it work like you think it does",
+  "main": "storee.js",
+  "scripts": {
+    "lint": "eslint --fix storee.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "eslintConfig": {
+    "extends": "eslint-config-mrhenry"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pieterbeulque/storee.git"
+  },
+  "keywords": [
+    "storage",
+    "localstorage",
+    "sessionstorage",
+    "store"
+  ],
+  "author": "Pieter Beulque <pieterbeulque@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/pieterbeulque/storee/issues"
+  },
+  "homepage": "https://github.com/pieterbeulque/storee#readme",
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-mrhenry": "^2.1.0",
+    "eslint-plugin-import": "^2.11.0"
+  }
+}
