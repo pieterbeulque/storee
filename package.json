@@ -1,6 +1,6 @@
 {
   "name": "storee",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "A lightweight wrapper around localStorage to make it work like you think it does",
   "main": "storee.js",
   "scripts": {
