@@ -6,7 +6,7 @@ A lightweight wrapper around localStorage to make it work like you think it does
 ```js
 import storee from 'storee';
 
-const store = store();
+const store = storee();
 
 store.set('count', 10);
 
