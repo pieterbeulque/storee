@@ -1,6 +1,6 @@
 {
   "name": "storee",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A lightweight wrapper around localStorage to make it work like you think it does",
   "main": "dist/storee.js",
   "umd:main": "dist/storee.umd.js",
