@@ -33,6 +33,10 @@ export default function storee() {
 					} catch (e) {
 						parsedValue = value.trim();
 					}
+				} else if (parsedValue === 'true') {
+					parsedValue = true;
+				} else if (parsedValue === 'false') {
+					parsedValue = false;
 				}
 
 				return parsedValue;
