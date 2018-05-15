@@ -27,7 +27,7 @@ export default function storee() {
 
 				if (!Number.isNaN(Number(parsedValue))) {
 					parsedValue = Number(parsedValue);
-				} else if (parsedValue.startsWith('{') && parsedValue.endsWith('}')) {
+				} else if (parsedValue.match(/[{|[].*[}|\]]/)) {
 					try {
 						parsedValue = JSON.parse(parsedValue);
 					} catch (e) {
