@@ -2,14 +2,22 @@
   "name": "storee",
   "version": "1.0.0",
   "description": "A lightweight wrapper around localStorage to make it work like you think it does",
-  "main": "storee.js",
+  "main": "dist/storee.js",
+  "umd:main": "dist/storee.umd.js",
+  "module": "dist/storee.m.js",
+  "source": "storee.js",
   "scripts": {
     "lint": "eslint --fix storee.js",
+    "build": "microbundle",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "eslintConfig": {
     "extends": "eslint-config-mrhenry"
   },
+  "files": [
+    "dist",
+    "storee.js"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pieterbeulque/storee.git"
@@ -29,6 +37,7 @@
   "devDependencies": {
     "eslint": "^4.19.1",
     "eslint-config-mrhenry": "^2.1.0",
-    "eslint-plugin-import": "^2.11.0"
+    "eslint-plugin-import": "^2.11.0",
+    "microbundle": "^0.4.4"
   }
 }
