@@ -48,5 +48,15 @@ export default function storee() {
 		}
 	};
 
-	return { set, get };
+	const remove = (key) => {
+		localStorage.removeItem(key);
+	};
+
+	const clear = () => {
+		localStorage.clear();
+	};
+
+	return {
+		set, get, remove, clear,
+	};
 }
