@@ -1,4 +1,6 @@
 export default function storee() {
+	const backup = {};
+
 	const set = (key, value) => {
 		const type = typeof value;
 		let parsedValue = value;
@@ -14,38 +16,46 @@ export default function storee() {
 		try {
 			window.localStorage.setItem(key, parsedValue);
 		} catch (e) {
-			console.error(e);
+			backup[key] = parsedValue;
 		}
 	};
 
 	const get = (key) => {
-		try {
-			const value = window.localStorage.getItem(key);
+		const value = (() => {
+			try {
+				const v = window.localStorage.getItem(key);
 
-			if (value) {
-				let parsedValue = value.trim();
-
-				if (!Number.isNaN(Number(parsedValue))) {
-					parsedValue = Number(parsedValue);
-				} else if (parsedValue.match(/[{|[].*[}|\]]/)) {
-					try {
-						parsedValue = JSON.parse(parsedValue);
-					} catch (e) {
-						parsedValue = value.trim();
-					}
-				} else if (parsedValue === 'true') {
-					parsedValue = true;
-				} else if (parsedValue === 'false') {
-					parsedValue = false;
+				if (v === null && typeof backup[key] !== 'undefined') {
+					return backup[key];
 				}
 
-				return parsedValue;
+				return v;
+			} catch (e) {
+				return backup[key];
+			}
+		})();
+
+		if (value) {
+			let parsedValue = value.trim();
+
+			if (!Number.isNaN(Number(parsedValue))) {
+				parsedValue = Number(parsedValue);
+			} else if (parsedValue.match(/[{|[].*[}|\]]/)) {
+				try {
+					parsedValue = JSON.parse(parsedValue);
+				} catch (e) {
+					parsedValue = value.trim();
+				}
+			} else if (parsedValue === 'true') {
+				parsedValue = true;
+			} else if (parsedValue === 'false') {
+				parsedValue = false;
 			}
 
-			return value;
-		} catch (e) {
-			return undefined;
+			return parsedValue;
 		}
+
+		return value;
 	};
 
 	const remove = (key) => {

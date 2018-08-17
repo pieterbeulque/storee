@@ -9,7 +9,7 @@
   "scripts": {
     "lint": "eslint --fix storee.js; exit 0",
     "build": "microbundle",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc mocha tests/index.js --require mock-local-storage --require @babel/register"
   },
   "eslintConfig": {
     "extends": "@gentsagency/eslint-config"
@@ -35,9 +35,16 @@
   },
   "homepage": "https://github.com/pieterbeulque/storee#readme",
   "devDependencies": {
+    "@babel/core": "^7.0.0-rc.1",
+    "@babel/preset-env": "^7.0.0-rc.1",
+    "@babel/register": "^7.0.0-rc.1",
     "@gentsagency/eslint-config": "^2.0.0",
+    "chai": "^4.1.2",
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.11.0",
-    "microbundle": "^0.6.0"
+    "microbundle": "^0.6.0",
+    "mocha": "^5.2.0",
+    "mock-local-storage": "^1.0.5",
+    "nyc": "^12.0.2"
   }
 }
