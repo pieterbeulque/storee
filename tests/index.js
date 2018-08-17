@@ -1,178 +1,173 @@
-import chai from 'chai';
+import 'mock-local-storage';
+import test from 'ava';
 import storee from '../storee';
-import localStorage from 'mock-local-storage';
 
 global.window = { localStorage: global.localStorage };
 
-describe('plugin and its interface', () => {
-	it('is a function', () => {
-		chai.expect(storee).to.be.a('function');
-	});
-
-	it('has a set method', () => {
-		const store = storee();
-		chai.expect(store.set).to.be.a('function');
-	});
-
-	it('has a get method', () => {
-		const store = storee();
-		chai.expect(store.get).to.be.a('function');
-	});
-
-	it('has a remove method', () => {
-		const store = storee();
-		chai.expect(store.remove).to.be.a('function');
-	});
-
-	it('has a clear method', () => {
-		const store = storee();
-		chai.expect(store.clear).to.be.a('function');
-	});
+test('exports a function', (t) => {
+	t.is(typeof storee, 'function');
 });
 
-describe('storing values', () => {
-	it('can store a string value', () => {
-		const store = storee();
-		const key = 'good';
-		const value = 'boy';
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.equal(value);
-	});
-
-	it('can store an integer value', () => {
-		const store = storee();
-		const key = 'one';
-		const value = 1;
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.equal(value);
-	});
-
-	it('can store an numeric value', () => {
-		const store = storee();
-		const key = 'pi';
-		const value = 3.1415;
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.equal(value);
-	});
-
-	it('can store a boolean true value', () => {
-		const store = storee();
-		const key = 'isit';
-		const value = true;
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.equal(value);
-	});
-
-	it('can store a boolean false value', () => {
-		const store = storee();
-		const key = 'orisit';
-		const value = false;
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.equal(value);
-	});
-
-	it('can store an object value', () => {
-		const store = storee();
-		const key = 'object';
-		const value = { one: [2, 3], four: 'five', six: 7 };
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.deep.equal(value);
-	});
-
-	it('can store an array value', () => {
-		const store = storee();
-		const key = 'array';
-		const value = [1, 2, 3, 4];
-
-		store.set(key, value);
-
-		chai.expect(store.get(key)).to.deep.equal(value);
-	});
+test('has a set method', (t) => {
+	const store = storee();
+	t.is(typeof store.set, 'function');
 });
 
-describe('removing values', () => {
-	it('can remove any value', () => {
-		const store = storee();
-		const key = 'trash';
-		const value = false;
-
-		store.set(key, value);
-		store.remove(key);
-
-		chai.expect(store.get(key)).to.be.an('null');
-	});
-
-	it('can clear all values', () => {
-		const store = storee();
-		const key = 'trash';
-		const value = false;
-
-		store.set(key, value);
-		store.clear();
-
-		chai.expect(store.get(key)).to.be.an('null');
-	});
+test('has a get method', (t) => {
+	const store = storee();
+	t.is(typeof store.get, 'function');
 });
 
-describe('handling unexpected values', () => {
-	it('returns the string value with malformed JSON', () => {
-		const store = storee();
-		const key = 'malformed';
-		const value = '{{{ test }';
+test('has a remove method', (t) => {
+	const store = storee();
+	t.is(typeof store.remove, 'function');
+});
 
-		store.set(key, value);
-		chai.expect(store.get(key)).to.equal(value);
-	});
+test('has a clear method', (t) => {
+	const store = storee();
+	t.is(typeof store.clear, 'function');
+});
 
-	it('falls back to an object store', () => {
-		const faultyLocalStorage = {
-			setItem: function setItem(key, value) {
-				throw new Error();
-			},
-			getItem: function getItem(key) {
-				throw new Error();
-			},
-		};
+test('can store a string value', (t) => {
+	const store = storee();
+	const key = 'good';
+	const value = 'boy';
 
-		window.localStorage = faultyLocalStorage;
+	store.set(key, value);
 
-		const store = storee();
-		const key = 'foo';
-		const value = 'bar';
+	t.is(store.get(key), value);
+});
 
-		store.set(key, value);
-		chai.expect(store.get(key)).to.equal(value);
-	});
+test('can store an integer value', (t) => {
+	const store = storee();
+	const key = 'one';
+	const value = 1;
 
-	it('can handle faulty setters', () => {
-		const faultyLocalStorage = {
-			setItem: function setItem(key, value) {
-				throw new Error();
-			},
-			getItem: function getItem(key) {
-				return null;
-			},
-		};
+	store.set(key, value);
 
-		window.localStorage = faultyLocalStorage;
+	t.is(store.get(key), value);
+});
 
-		const store = storee();
-		const key = 'foo';
-		const value = 'bar';
+test('can store an numeric value', (t) => {
+	const store = storee();
+	const key = 'pi';
+	const value = 3.1415;
 
-		store.set(key, value);
-		chai.expect(store.get(key)).to.equal(value);
-	});
+	store.set(key, value);
+
+	t.is(store.get(key), value);
+});
+
+test('can store a boolean true value', (t) => {
+	const store = storee();
+	const key = 'isit';
+	const value = true;
+
+	store.set(key, value);
+
+	t.is(store.get(key), value);
+});
+
+test('can store a boolean false value', (t) => {
+	const store = storee();
+	const key = 'orisit';
+	const value = false;
+
+	store.set(key, value);
+
+	t.is(store.get(key), value);
+});
+
+test('can store an object value', (t) => {
+	const store = storee();
+	const key = 'object';
+	const value = { one: [2, 3], four: 'five', six: 7 };
+
+	store.set(key, value);
+
+	t.deepEqual(store.get(key), value);
+});
+
+test('can store an array value', (t) => {
+	const store = storee();
+	const key = 'array';
+	const value = [1, 2, 3, 4];
+
+	store.set(key, value);
+
+	t.deepEqual(store.get(key), value);
+});
+
+test('can remove any value', (t) => {
+	const store = storee();
+	const key = 'trash';
+	const value = false;
+
+	store.set(key, value);
+	store.remove(key);
+
+	t.is(store.get(key), null);
+});
+
+test('can clear all values', (t) => {
+	const store = storee();
+	const key = 'trash';
+	const value = false;
+
+	store.set(key, value);
+	store.clear();
+
+	t.is(store.get(key), null);
+});
+
+test('returns the string value with malformed JSON', (t) => {
+	const store = storee();
+	const key = 'malformed';
+	const value = '{{{ test }';
+
+	store.set(key, value);
+
+	t.is(store.get(key), value);
+});
+
+test('falls back to an object store', (t) => {
+	const faultyLocalStorage = {
+		setItem: function setItem(key, value) {
+			throw new Error();
+		},
+		getItem: function getItem(key) {
+			throw new Error();
+		},
+	};
+
+	window.localStorage = faultyLocalStorage;
+
+	const store = storee();
+	const key = 'foo';
+	const value = 'bar';
+
+	store.set(key, value);
+
+	t.is(store.get(key), value);
+});
+
+test('can handle faulty setters', (t) => {
+	const faultyLocalStorage = {
+		setItem: function setItem(key, value) {
+			throw new Error();
+		},
+		getItem: function getItem(key) {
+			return null;
+		},
+	};
+
+	window.localStorage = faultyLocalStorage;
+
+	const store = storee();
+	const key = 'foo';
+	const value = 'bar';
+
+	store.set(key, value);
+
+	t.is(store.get(key), value);
 });
