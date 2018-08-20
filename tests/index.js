@@ -8,6 +8,20 @@ test('exports a function', (t) => {
 	t.is(typeof storee, 'function');
 });
 
+test('works with default localStorage', (t) => {
+	t.notThrows(() => storee());
+});
+
+test('throws an error on invalid arguments', (t) => {
+	const noop = () => {};
+
+	t.throws(() => storee('sessionStorage'));
+	t.throws(() => storee({ store: 'sessionStorage' }));
+	t.throws(() => storee({ store: { setItem: 'invalid', getItem: noop } }));
+	t.throws(() => storee({ store: { setItem: noop, getItem: 'invalid' } }));
+	t.notThrows(() => storee({ store: { setItem: noop, getItem: noop } }));
+});
+
 test('has a set method', (t) => {
 	const store = storee();
 	t.is(typeof store.set, 'function');
