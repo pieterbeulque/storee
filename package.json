@@ -9,10 +9,13 @@
   "scripts": {
     "lint": "eslint --fix storee.js; exit 0",
     "build": "microbundle",
-    "test": "nyc ava tests/index.js --verbose"
+    "test": "nyc ava tests/index.js --verbose",
+    "coverage": "nyc report --reporter=text-lcov | coveralls"
   },
   "ava": {
-    "require": ["@babel/register"]
+    "require": [
+      "@babel/register"
+    ]
   },
   "eslintConfig": {
     "extends": "@gentsagency/eslint-config"
@@ -43,6 +46,7 @@
     "@babel/register": "^7.0.0-rc.1",
     "@gentsagency/eslint-config": "^2.0.0",
     "ava": "^1.0.0-beta.7",
+    "coveralls": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-plugin-import": "^2.11.0",
     "microbundle": "^0.6.0",
