@@ -1,5 +1,29 @@
-export default function storee() {
+export default function storee(options = {}) {
 	const backup = {};
+
+	if (typeof options !== 'undefined' && typeof options !== 'object') {
+		throw new Error('invalid options');
+	}
+
+	const store = (() => {
+		if (typeof options.store === 'undefined') {
+			return window.localStorage;
+		}
+
+		if (typeof options.store !== 'object') {
+			throw new Error('invalid store');
+		}
+
+		if (typeof options.store.setItem !== 'function') {
+			throw new Error('invalid store');
+		}
+
+		if (typeof options.store.getItem !== 'function') {
+			throw new Error('invalid store');
+		}
+
+		return options.store;
+	})();
 
 	const set = (key, value) => {
 		const type = typeof value;
@@ -14,7 +38,7 @@ export default function storee() {
 		}
 
 		try {
-			window.localStorage.setItem(key, parsedValue);
+			store.setItem(key, parsedValue);
 		} catch (e) {
 			backup[key] = parsedValue;
 		}
@@ -23,7 +47,7 @@ export default function storee() {
 	const get = (key) => {
 		const value = (() => {
 			try {
-				const v = window.localStorage.getItem(key);
+				const v = store.getItem(key);
 
 				if (v === null && typeof backup[key] !== 'undefined') {
 					return backup[key];
