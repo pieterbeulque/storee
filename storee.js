@@ -1,3 +1,7 @@
+if (typeof Number.isNaN !== 'function') {
+	Number.isNaN = (value) => value !== null && (value != value || +value != value);
+}
+
 export default function storee(options = {}) {
 	const backup = {};
 
@@ -62,8 +66,10 @@ export default function storee(options = {}) {
 		if (value) {
 			let parsedValue = value.trim();
 
-			if (!Number.isNaN(Number(parsedValue))) {
-				parsedValue = Number(parsedValue);
+			const valueCastAsNumber = Number(parsedValue);
+
+			if (!Number.isNaN(valueCastAsNumber)) {
+				parsedValue = valueCastAsNumber;
 			} else if (parsedValue.match(/[{|[].*[}|\]]/)) {
 				try {
 					parsedValue = JSON.parse(parsedValue);
