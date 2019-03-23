@@ -1,4 +1,5 @@
 if (typeof Number.isNaN !== 'function') {
+	// eslint-disable-next-line no-self-compare, eqeqeq
 	Number.isNaN = (value) => value !== null && (value != value || +value != value);
 }
 
