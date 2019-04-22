@@ -48,9 +48,9 @@
     "ava": "^1.4.1",
     "coveralls": "^3.0.3",
     "eslint": "^5.16.0",
-    "eslint-plugin-import": "^2.17.1",
+    "eslint-plugin-import": "^2.17.2",
     "microbundle": "^0.11.0",
     "mock-local-storage": "^1.1.8",
-    "nyc": "^13.3.0"
+    "nyc": "^14.0.0"
   }
 }
